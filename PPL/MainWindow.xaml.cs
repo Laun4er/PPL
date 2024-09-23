@@ -155,5 +155,43 @@ namespace PPL
         {
             DragMove();
         }
+        private void ToolBar1_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                switch (this.WindowState)
+                {
+                    case WindowState.Maximized:
+                        this.WindowState = WindowState.Normal;
+                        break;
+                    case WindowState.Normal:
+                        this.WindowState = WindowState.Maximized;
+                        break;
+                }
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            switch(this.WindowState)
+            {
+                case WindowState.Maximized:
+                    this.WindowState = WindowState.Normal;
+                    break;
+                case WindowState.Normal:
+                    this.WindowState = WindowState.Maximized;
+                    break;
+            }
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

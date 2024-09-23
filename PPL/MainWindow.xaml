@@ -9,19 +9,52 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" GlassFrameThickness="1"/>
     </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/WinStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="Black">
+        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="LightBlue">
             <Frame.Effect>
                 <BlurEffect x:Name="BlurFrame" Radius="0"/>
             </Frame.Effect>
         </Frame>
         <!--#region-->
-        <Border Background="Black" Opacity="0.56" x:Name="ToolBar" MouseLeftButtonDown="ToolBar_MouseLeftButtonDown">
-            
+        <Border Background="Black" Opacity="0.56" x:Name="ToolBar"/>
+        <Border Background="Transparent" x:Name="ToolBar1" MouseLeftButtonDown="ToolBar_MouseLeftButtonDown" MouseDown="ToolBar1_MouseDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Главная(Vanilla)" HorizontalAlignment="Center" Foreground="White" x:Name="titlePage"/>
+
+                <Button Grid.Column="4" Style="{StaticResource Toolbar}" x:Name="Close" Click="Close_Click">
+                    <Image Source="/Assets/ToolBar/Close.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+                <Button Grid.Column="3" Style="{StaticResource Toolbar}" x:Name="Maximize" Click="Maximize_Click">
+                    <Image Source="/Assets/ToolBar/Maximize.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+                <Button Grid.Column="2" Style="{StaticResource Toolbar}" x:Name="Minimize" Click="Minimize_Click">
+                    <Image Source="/Assets/ToolBar/Minimize.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+                <!--РЕАЛИЗОВАТЬ-->
+                <Button Grid.Column="1" Style="{StaticResource Toolbar}">
+                    <Image Source="/Assets/ToolBar/Download.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+            </Grid>
         </Border>
         <!--#endregion-->
         <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="10" Background="Black" Opacity="0.56" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave">

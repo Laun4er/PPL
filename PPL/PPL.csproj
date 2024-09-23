@@ -113,6 +113,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\WinStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\ModsServer.xaml.cs">
@@ -138,6 +142,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\Fonts\Cygre-Black.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-BlackIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Bold.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-BoldIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Book.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-BookIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-ExtraBold.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-ExtraBoldIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Light.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-LightIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Medium.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-MediumIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Regular.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-RegularIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-SemiBold.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-SemiBoldIt.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-Thin.ttf" />
+    <Resource Include="Assets\Fonts\Cygre-ThinIt.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -147,11 +169,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Styles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\BG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\ToolBar\Close.png" />
+    <Resource Include="Assets\ToolBar\Download.png" />
+    <Resource Include="Assets\ToolBar\Maximize.png" />
+    <Resource Include="Assets\ToolBar\Minimize.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
