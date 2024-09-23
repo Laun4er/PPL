@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using PPL.Properties;
+using PPL.pages;
+using PPL.Pages;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -20,6 +22,10 @@ namespace PPL
 
         private Storyboard isCheckedPin;
         private Storyboard isUncheckedPin;
+
+        private Dictionary<string, Page> pages = new Dictionary<string, Page>();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,48 +68,46 @@ namespace PPL
             {
                 PinPanel.IsChecked = false;
             }
+
+            pages.Add("Vanilla", new Vanilla());
+            pages.Add("ModsServer", new ModsServer());
+            pages.Add("Mods", new Mods());
+            pages.Add("News", new News());
+            pages.Add("Settings", new Settings());
+            pages.Add("Profile", new Profile());
+            pageFrame.Content = pages["Vanilla"];
+
         }
 
         private void CreateStoryboards()
         {
-            // Show Panel Storyboard
             showPanelStoryboard = new Storyboard();
-
             var showWidthAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTargetName(showWidthAnimation, "NavigationPanel");
             Storyboard.SetTargetProperty(showWidthAnimation, new PropertyPath(Border.WidthProperty));
             showWidthAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(200, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1)), new CubicEase { EasingMode = EasingMode.EaseOut }));
-
             showPanelStoryboard.Children.Add(showWidthAnimation);
 
-            // Hide Panel Storyboard
             hidePanelStoryboard = new Storyboard();
-
             var hideWidthAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTargetName(hideWidthAnimation, "NavigationPanel");
             Storyboard.SetTargetProperty(hideWidthAnimation, new PropertyPath(Border.WidthProperty));
             hideWidthAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(10, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1)), new CubicEase { EasingMode = EasingMode.EaseOut }));
-
             hidePanelStoryboard.Children.Add(hideWidthAnimation);
 
-            // Show Blur Storyboard
-            showBlurStoryboard = new Storyboard();
 
+            showBlurStoryboard = new Storyboard();
             var showBlurAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTargetName(showBlurAnimation, "BlurFrame");
             Storyboard.SetTargetProperty(showBlurAnimation, new PropertyPath(BlurEffect.RadiusProperty));
-            showBlurAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1)), new CubicEase { EasingMode = EasingMode.EaseOut }));
-
+            showBlurAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(10, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1)), new CubicEase { EasingMode = EasingMode.EaseOut }));
             showBlurStoryboard.Children.Add(showBlurAnimation);
 
-            // Hide Blur Storyboard
             hideBlurStoryboard = new Storyboard();
-
             var hideBlurAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTargetName(hideBlurAnimation, "BlurFrame");
             Storyboard.SetTargetProperty(hideBlurAnimation, new PropertyPath(BlurEffect.RadiusProperty));
             hideBlurAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1)), new CubicEase { EasingMode = EasingMode.EaseOut }));
-
             hideBlurStoryboard.Children.Add(hideBlurAnimation);
         }
 
@@ -112,13 +116,14 @@ namespace PPL
             Properties.Settings.Default.PinnedPanel = true;
             Properties.Settings.Default.Save();
             showPanelStoryboard.Begin(this);
+            hideBlurStoryboard.Begin(this);
         }
 
         private void PinPanel_Unchecked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.PinnedPanel = false;
             Properties.Settings.Default.Save();
-            hidePanelStoryboard.Begin(this);
+            showBlurStoryboard.Begin(this);
         }
 
         private void NavigationPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -145,6 +150,10 @@ namespace PPL
                 hidePanelStoryboard.Begin(this);
                 hideBlurStoryboard.Begin(this);
             }
+        }
+        private void ToolBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

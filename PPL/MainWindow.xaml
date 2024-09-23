@@ -7,20 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0"/>
+        <WindowChrome CaptionHeight="0" GlassFrameThickness="1"/>
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="Gray">
+        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="Black">
             <Frame.Effect>
                 <BlurEffect x:Name="BlurFrame" Radius="0"/>
             </Frame.Effect>
         </Frame>
         <!--#region-->
-        <Border Background="Black" Opacity="0.56" ></Border>
+        <Border Background="Black" Opacity="0.56" x:Name="ToolBar" MouseLeftButtonDown="ToolBar_MouseLeftButtonDown">
+            
+        </Border>
         <!--#endregion-->
         <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="10" Background="Black" Opacity="0.56" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave">
             <StackPanel>
