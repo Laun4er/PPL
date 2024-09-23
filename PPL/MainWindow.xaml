@@ -6,14 +6,35 @@
         xmlns:local="clr-namespace:PPL"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="Gray"/>
+        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="Gray">
+            <Frame.Effect>
+                <BlurEffect x:Name="BlurFrame" Radius="0"/>
+            </Frame.Effect>
+        </Frame>
         <!--#region-->
         <Border Background="Black" Opacity="0.56" ></Border>
         <!--#endregion-->
+        <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="10" Background="Black" Opacity="0.56" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave">
+            <StackPanel>
+                <CheckBox x:Name="PinPanel"/>
+                <ListBox x:Name="LB1" Background="Transparent">
+                    <ListBoxItem Content="Home" x:Name="Home">
+                    
+                </ListBoxItem>
+                <ListBoxItem Content="Settings" x:Name="Settings">
+                    
+                </ListBoxItem>
+            </ListBox>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </Window>
