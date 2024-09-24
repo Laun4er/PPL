@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PPL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280"
+        MinWidth="800" MinHeight="600">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" GlassFrameThickness="1"/>
     </WindowChrome.WindowChrome>
@@ -17,12 +18,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Style ="{StaticResource WindowMainPanelStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" Background="LightBlue">
+        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2">
             <Frame.Effect>
                 <BlurEffect x:Name="BlurFrame" Radius="0"/>
             </Frame.Effect>
@@ -57,18 +58,85 @@
             </Grid>
         </Border>
         <!--#endregion-->
-        <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="10" Background="Black" Opacity="0.56" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave">
-            <StackPanel>
-                <CheckBox x:Name="PinPanel"/>
-                <ListBox x:Name="LB1" Background="Transparent">
-                    <ListBoxItem Content="Home" x:Name="Home">
-                    
-                </ListBoxItem>
-                <ListBoxItem Content="Settings" x:Name="Settings">
-                    
-                </ListBoxItem>
-            </ListBox>
-            </StackPanel>
+        <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="200" Background="#8F000000" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="PinPanel" HorizontalAlignment="Right" Style="{StaticResource PinPanel}" Width="30" Height="30">
+                    <CheckBox.ToolTip>
+                        <ToolTip Content="Закрепляет навигационную панель"/>
+                    </CheckBox.ToolTip>
+                </CheckBox>
+                <ListBox x:Name="LB1" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListBoxItem x:Name="Vanilla" BorderThickness="0">
+                        <Border Width="180" Height="50" Background="#151515" CornerRadius="15,15,0,0" Margin="0,-1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Vanilla" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/NavPanel/Vanilla.png" Grid.Column="1" Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="ModsServer" BorderThickness="0">
+                        <Border Width="180" Height="50" Background="#151515" CornerRadius="0,0,15,15" Margin="0,-1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Mods" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/NavPanel/Mods.png" Grid.Column="1" Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="Mods" BorderThickness="0">
+                        <Border Width="180" Height="50" Background="#151515" CornerRadius="15" Margin="0,5,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Модификации" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/NavPanel/ModsServer.png" Grid.Column="1" Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="News" BorderThickness="0">
+                        <Border Width="180" Height="50" Background="#151515" CornerRadius="15" Margin="0,5,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Что нового" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/NavPanel/News.png" Grid.Column="1" Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </ListBoxItem>
+                </ListBox>
+                <ListBox x:Name="LB2" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListBoxItem x:Name="Settings" BorderThickness="0">
+                        <Border Width="180" Height="50" Background="#151515" CornerRadius="15" Margin="0,5,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Настройки" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/NavPanel/Setting.png" Grid.Column="1" Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </ListBoxItem>
+                </ListBox>
+                
+
+            </Grid>
         </Border>
 
     </Grid>

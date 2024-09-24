@@ -179,5 +179,13 @@
     <Resource Include="Assets\ToolBar\Maximize.png" />
     <Resource Include="Assets\ToolBar\Minimize.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\NavPanel\Mods.png" />
+    <Resource Include="Assets\NavPanel\ModsServer.png" />
+    <Resource Include="Assets\NavPanel\News.png" />
+    <Resource Include="Assets\NavPanel\Pin.png" />
+    <Resource Include="Assets\NavPanel\Setting.png" />
+    <Resource Include="Assets\NavPanel\Vanilla.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
