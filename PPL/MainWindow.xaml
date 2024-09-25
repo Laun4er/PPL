@@ -15,6 +15,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/WinStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/GlobalStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -23,7 +24,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2">
+        <Frame x:Name="pageFrame" Grid.Row="0" Grid.RowSpan="2" NavigationUIVisibility="Hidden">
             <Frame.Effect>
                 <BlurEffect x:Name="BlurFrame" Radius="0"/>
             </Frame.Effect>
@@ -43,22 +44,22 @@
                 <TextBlock Text="Главная(Vanilla)" HorizontalAlignment="Center" Foreground="White" x:Name="titlePage"/>
 
                 <Button Grid.Column="4" Style="{StaticResource Toolbar}" x:Name="Close" Click="Close_Click">
-                    <Image Source="/Assets/ToolBar/Close.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="/Assets/ToolBar/Close.png" Width="20" Height="20"/>
                 </Button>
                 <Button Grid.Column="3" Style="{StaticResource Toolbar}" x:Name="Maximize" Click="Maximize_Click">
-                    <Image Source="/Assets/ToolBar/Maximize.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="/Assets/ToolBar/Maximize.png" Width="20" Height="20"/>
                 </Button>
                 <Button Grid.Column="2" Style="{StaticResource Toolbar}" x:Name="Minimize" Click="Minimize_Click">
-                    <Image Source="/Assets/ToolBar/Minimize.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="/Assets/ToolBar/Minimize.png" Width="20" Height="20"/>
                 </Button>
                 <!--РЕАЛИЗОВАТЬ-->
                 <Button Grid.Column="1" Style="{StaticResource Toolbar}">
-                    <Image Source="/Assets/ToolBar/Download.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="/Assets/ToolBar/Download.png" Width="20" Height="20"/>
                 </Button>
             </Grid>
         </Border>
         <!--#endregion-->
-        <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="200" Background="#8F000000" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        <Border Name="NavigationPanel" HorizontalAlignment="Left" Width="5" Background="#8F000000" Grid.Row="0" Grid.RowSpan="2" MouseEnter="NavigationPanel_MouseEnter" MouseLeave="NavigationPanel_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -70,7 +71,7 @@
                         <ToolTip Content="Закрепляет навигационную панель"/>
                     </CheckBox.ToolTip>
                 </CheckBox>
-                <ListBox x:Name="LB1" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListBox x:Name="LB1" SelectedIndex="0" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="PageChanged">
                     <ListBoxItem x:Name="Vanilla" BorderThickness="0">
                         <Border Width="180" Height="50" Background="#151515" CornerRadius="15,15,0,0" Margin="0,-1">
                             <Grid>
@@ -120,7 +121,7 @@
                         </Border>
                     </ListBoxItem>
                 </ListBox>
-                <ListBox x:Name="LB2" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListBox x:Name="LB2" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False" SelectionChanged="PageChanged">
                     <ListBoxItem x:Name="Settings" BorderThickness="0">
                         <Border Width="180" Height="50" Background="#151515" CornerRadius="15" Margin="0,5,0,0">
                             <Grid>
@@ -134,10 +135,7 @@
                         </Border>
                     </ListBoxItem>
                 </ListBox>
-                
-
             </Grid>
         </Border>
-
     </Grid>
 </Window>

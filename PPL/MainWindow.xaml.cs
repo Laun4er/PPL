@@ -8,6 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 
@@ -77,6 +80,8 @@ namespace PPL
             pages.Add("Profile", new Profile());
             pageFrame.Content = pages["Vanilla"];
 
+            LB1.SelectedIndex = 0;
+
         }
 
         private void CreateStoryboards()
@@ -143,8 +148,6 @@ namespace PPL
 
         private void NavigationPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-
-
             if (Properties.Settings.Default.PinnedPanel == false)
             {
                 hidePanelStoryboard.Begin(this);
@@ -178,7 +181,7 @@ namespace PPL
 
         private void Maximize_Click(object sender, RoutedEventArgs e)
         {
-            switch(this.WindowState)
+            switch (this.WindowState)
             {
                 case WindowState.Maximized:
                     this.WindowState = WindowState.Normal;
@@ -192,6 +195,111 @@ namespace PPL
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
+        private bool isInitialSelection = true;
+        private void PageChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isInitialSelection)
+            {
+                isInitialSelection = false;
+                return;
+            }
+
+            if (sender is ListBox listBox)
+            {
+                if (listBox.SelectedItem is ListBoxItem selectedListBoxItem)
+                {
+                    switch (listBox.Name)
+                    {
+                        case "ListBox2":
+                            LB1.SelectedIndex = -1;
+                            break;
+                        case "ListBox1":
+                            LB2.SelectedIndex = -1;
+                            break;
+                    }
+                    Page pageInstance = pages[selectedListBoxItem.Name];
+                    pageFrame.Content = pageInstance;
+                }
+            }
+        }
+        public static class SelectorBehavior
+        {
+
+            public static readonly DependencyProperty ShouldSelectItemOnMouseUpProperty =
+                DependencyProperty.RegisterAttached(
+                    "ShouldSelectItemOnMouseUp", typeof(bool), typeof(SelectorBehavior),
+                    new PropertyMetadata(default(bool), HandleShouldSelectItemOnMouseUpChange));
+
+            public static void SetShouldSelectItemOnMouseUp(DependencyObject element, bool value)
+            {
+                element.SetValue(ShouldSelectItemOnMouseUpProperty, value);
+            }
+
+            public static bool GetShouldSelectItemOnMouseUp(DependencyObject element)
+            {
+                return (bool)element.GetValue(ShouldSelectItemOnMouseUpProperty);
+            }
+
+            private static void HandleShouldSelectItemOnMouseUpChange(
+                DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                if (d is Selector selector)
+                {
+                    selector.PreviewMouseDown -= HandleSelectPreviewMouseDown;
+                    selector.MouseUp -= HandleSelectMouseUp;
+
+                    if (Equals(e.NewValue, true))
+                    {
+                        selector.PreviewMouseDown += HandleSelectPreviewMouseDown;
+                        selector.MouseUp += HandleSelectMouseUp;
+                    }
+                }
+            }
+
+            private static void HandleSelectMouseUp(object sender, MouseButtonEventArgs e)
+            {
+                var selector = (Selector)sender;
+
+                if (e.ChangedButton == MouseButton.Left && e.OriginalSource is Visual source)
+                {
+                    var container = selector.ContainerFromElement(source);
+                    if (container != null)
+                    {
+                        var index = selector.ItemContainerGenerator.IndexFromContainer(container);
+                        if (index >= 0)
+                        {
+                            selector.SelectedIndex = index;
+                        }
+                    }
+                }
+            }
+
+            private static void HandleSelectPreviewMouseDown(object sender, MouseButtonEventArgs e)
+            {
+                e.Handled = e.ChangedButton == MouseButton.Left && e.OriginalSource is FrameworkElement originalSource && originalSource.Parent != null;
+            }
         }
     }
 }
